@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { fetchContacts } from '../redux/operations';
+import { fetchContacts } from '../redux/contacts/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import Filter from './Filter/Filter';
 import {
@@ -17,7 +17,7 @@ import {
   selectContacts,
   selectError,
   selectIsLoading,
-} from '../redux/selectors';
+} from '../redux/contacts/selectors';
 import AddContact from './AddContact/AddContact';
 
 export const App = () => {

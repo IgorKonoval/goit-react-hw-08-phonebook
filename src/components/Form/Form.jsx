@@ -2,8 +2,8 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Field, FormGroup, ErrorMessage } from './Form.styled';
-import { selectContacts } from '../../redux/selectors';
-import { addContact } from '../../redux/operations';
+import { selectContacts } from '../../redux/contacts/selectors';
+import { addContact } from '../../redux/contacts/operations';
 import Notiflix from 'notiflix';
 
 const FormSchema = Yup.object().shape({
