@@ -19,7 +19,7 @@ export const Title = styled.h1`
   text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
   display: flex;
   justify-content: center;
-  margin-top: 200px;
+  margin-top: 15px;
   color: aqua;
 `;
 
