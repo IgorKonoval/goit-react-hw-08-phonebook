@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { ListItem, Button } from './ListItem.styled';
+import { ListItem, Button, ListItemPar } from './ListItem.styled';
 import { deleteContact } from '../../redux/contacts/operations';
 
 const ContactItem = ({ id, name, number }) => {
@@ -10,9 +10,9 @@ const ContactItem = ({ id, name, number }) => {
 
   return (
     <ListItem>
-      <p>
+      <ListItemPar>
         {name}: {number}
-      </p>
+      </ListItemPar>
       <Button type="button" onClick={removeContact}>
         Delete
       </Button>

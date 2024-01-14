@@ -1,57 +1,57 @@
-import { useEffect } from 'react';
-import { fetchContacts } from '../redux/contacts/operations';
-import { useDispatch, useSelector } from 'react-redux';
-import Filter from './Filter/Filter';
-import {
-  Container,
-  Section,
-  Title,
-  SectionTitle,
-  Message,
-  Block,
-} from './App.styled';
-import { ContactList } from './ContactList/ContactList';
-import { Loader } from './Loader';
-import { GlobalStyle } from './GlobalStyle';
-import {
-  selectContacts,
-  selectError,
-  selectIsLoading,
-} from '../redux/contacts/selectors';
-import AddContact from './AddContact/AddContact';
+import { useDispatch } from 'react-redux';
+import React, { lazy, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { RestrictedRoute } from './RestrictedRoute';
+import { Layout } from './Layout';
+import { PrivateRoute } from './PrivateRoute';
+import { useAuth } from 'hooks/useAuth';
+import { currentUser } from '../redux/auth/operation';
+
+const HomePage = lazy(() => import('../pages/HomePage'));
+const ContactsPage = lazy(() => import('../pages/ContactsPage'));
+const RegistrationPage = lazy(() => import('../pages/RegistrationPage'));
+const LoginPage = lazy(() => import('../pages/LoginPage'));
 
 export const App = () => {
-  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(currentUser());
   }, [dispatch]);
 
-  return (
-    <Container>
-      <Title>Phonebook</Title>
-      <Block>
-        <AddContact />
-        <Section>
-          <SectionTitle>Contacts</SectionTitle>
-          {contacts.length !== 0 ? (
-            <>
-              <Filter />
-              {isLoading && !error && <Loader />}
-              <ContactList />
-            </>
-          ) : (
-            <Message>
-              There are no contacts in your phonebook. Please add your first
-              contact!
-            </Message>
-          )}
-          <GlobalStyle />
-        </Section>
-      </Block>
-    </Container>
+  return isRefreshing ? (
+    <b> Refreshing user ...</b>
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={RegistrationPage}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={LoginPage} />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={ContactsPage} />
+          }
+        />
+        <Route
+          path="*"
+          element={<PrivateRoute redirectTo="/login" component={HomePage} />}
+        />
+      </Route>
+    </Routes>
   );
 };

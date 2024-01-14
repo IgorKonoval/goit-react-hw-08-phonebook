@@ -9,3 +9,8 @@ export const Button = styled.button`
   width: 90px;
   padding: 5px;
 `;
+
+export const ListItemPar = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+`;

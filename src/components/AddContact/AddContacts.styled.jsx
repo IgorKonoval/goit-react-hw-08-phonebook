@@ -9,5 +9,4 @@ export const Section = styled.section`
 
 export const SectionTitle = styled.h2`
   margin-bottom: 15px;
-  margin-top: 25px;
 `;

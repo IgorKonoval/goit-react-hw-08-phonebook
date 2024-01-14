@@ -1,8 +1,9 @@
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
 import { Form, Field, FormGroup, ErrorMessage } from './Form.styled';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from '../../redux/contacts/selectors';
+
 import { addContact } from '../../redux/contacts/operations';
 import Notiflix from 'notiflix';
 
@@ -17,6 +18,7 @@ const ContactForm = ({ closeModal }) => {
 
   const handleSubmit = (values, { resetForm }) => {
     const { name, number } = values;
+
     if (
       contacts.find(
         contact =>
@@ -26,9 +28,13 @@ const ContactForm = ({ closeModal }) => {
       Notiflix.Notify.failure(`${name} is already in contacts!`);
       return;
     }
+
     dispatch(addContact({ name, number }));
-    closeModal();
+    Notiflix.Notify.success(
+      `Contact with name ${name} has been added successfully to contacts list.`
+    );
     resetForm();
+    closeModal();
   };
 
   return (
@@ -42,14 +48,24 @@ const ContactForm = ({ closeModal }) => {
     >
       <Form>
         <FormGroup>
-          Name
-          <Field name="name" type="text" placeholder="Enter a name" />
+          <h3>Name</h3>
+          <Field
+            name="name"
+            type="text"
+            placeholder="Enter a name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          />
           <ErrorMessage name="name" component="span" />
         </FormGroup>
 
         <FormGroup>
-          Number
-          <Field name="number" type="tel" placeholder="Enter a phone-number" />
+          <h3>Number</h3>
+          <Field
+            name="number"
+            type="tel"
+            placeholder="Enter a phone-number"
+            pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
+          />
           <ErrorMessage name="number" component="span" />
         </FormGroup>
 

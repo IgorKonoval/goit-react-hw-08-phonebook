@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
+  justify-content: space-around;
 `;
 
 export const Section = styled.section`
@@ -14,7 +15,12 @@ export const Section = styled.section`
 `;
 
 export const Title = styled.h1`
-  font-size: 30px;
+  font-size: 50px;
+  text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  color: aqua;
 `;
 
 export const Block = styled.div`
@@ -30,4 +36,10 @@ export const SectionTitle = styled.h2`
 
 export const Message = styled.p`
   color: red;
+`;
+
+export const TitleUser = styled.h3`
+  font-size: 30px;
+  text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
+  color: aqua;
 `;
