@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkreact_homework_template=self.webpackChunkreact_homework_template||[]).push([[206],{1206:function(e,r,n){n.r(r);var o=n(2606),t=n(184);r.default=function(){return(0,t.jsx)("div",{className:"backgroundColor: green",children:(0,t.jsx)(o.Dx,{children:"My phonebook"})})}}}]);
+//# sourceMappingURL=206.e97fe5b1.chunk.js.map
